@@ -1,9 +1,11 @@
 import type {
   ActionArgs,
   LinksFunction,
+  MetaFunction
 } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
+  Form,
   Link,
   useActionData,
   useSearchParams,
@@ -18,6 +20,12 @@ import {
   register,
 } from "~/utils/session.server";
 
+
+export const meta: MetaFunction = () => ({
+  description:
+    "Login to submit your own jokes to Remix Jokes!",
+  title: "Remix Jokes | Login",
+});
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesUrl },
@@ -52,7 +60,7 @@ export const action = async ({ request }: ActionArgs) => {
     form.get("redirectTo")?.toString() || "/jokes" // added ?.toString() to fix error conflict w/ filename addtl type
   );
 
-  console.log(`redirectTo value: ${redirectTo}`)
+  // console.log(`redirectTo value: ${redirectTo}`)
   
   if (
     typeof loginType !== "string" ||
@@ -141,7 +149,7 @@ export default function Login() {
     <div className="container">
       <div className="content" data-light="">
         <h1>Login</h1>
-        <form method="post">
+        <Form method="post">
           <input
             type="hidden"
             name="redirectTo"
@@ -243,7 +251,7 @@ export default function Login() {
           <button type="submit" className="button">
             Submit
           </button>
-        </form>
+        </Form>
       </div>
       <div className="links">
         <ul>

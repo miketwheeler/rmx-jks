@@ -53,7 +53,8 @@ export function CatchBoundary() {
 }
 
 // error boundary handles errors in the Joke index route
-export function ErrorBoundary() {
+export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error);
   return (
     <div className="error-container">
       I did a whoopsies.
